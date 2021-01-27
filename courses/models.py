@@ -1,12 +1,11 @@
-import os
-
-from django.db import models
-from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
+from django.db import models
 from django.template.loader import render_to_string
+from django.utils.text import slugify
 
-from .fields import OrderField
 from users.models import Account
+from .fields import OrderField
 
 
 class Subject(models.Model):
@@ -22,7 +21,7 @@ class Subject(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
-            super(Subject, self).save(*args, **kwargs)
+        super(Subject, self).save(*args, **kwargs)
 
 
 class Course(models.Model):
@@ -50,7 +49,7 @@ class Course(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
-            super(Course, self).save(*args, **kwargs)
+        super(Course, self).save(*args, **kwargs)
 
 
 class Module(models.Model):
